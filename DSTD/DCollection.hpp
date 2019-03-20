@@ -10,11 +10,17 @@
 //
 
 #pragma once
+#include <iostream>
 #include <vector>
 #include <queue>
 #include <list>
 
 namespace dstd {
+    
+#define LA (body) [ ](auto & i0) { body; }
+#define LAr(body) [ ](auto & i0) { return body; }
+#define CL (body) [&](auto & i0) { body; }
+#define CLr(body) [&](auto & i0) { return body; }
     
     template <typename Type, template <typename, typename = std::allocator<Type>> class Container>
     struct DCollection: Container<Type> {
@@ -66,4 +72,7 @@ namespace dstd {
     const auto minus          = [](auto i0, auto i1) -> auto { return i0 - i1; };
     const auto multiplication = [](auto i0, auto i1) -> auto { return i0 * i1; };
     const auto division       = [](auto i0, auto i1) -> auto { return i0 / i1; };
+    
+    const auto printOnNewLine = [](const auto & i0) { std::cout << "\n" << i0 << "\n"; };
+    const auto printInLine    = [](const auto & i0) { std::cout << i0 << " "; };
 }

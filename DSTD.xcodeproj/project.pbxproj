@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		17A457B722425143006748AA /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 17A457B622425143006748AA /* main.cpp */; };
+		17A457B722425143006748AA /* tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 17A457B622425143006748AA /* tests.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,7 +24,7 @@
 
 /* Begin PBXFileReference section */
 		17A457B322425143006748AA /* DSTD */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = DSTD; sourceTree = BUILT_PRODUCTS_DIR; };
-		17A457B622425143006748AA /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		17A457B622425143006748AA /* tests.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = tests.cpp; sourceTree = "<group>"; };
 		17A457BE2242577C006748AA /* DCollection.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DCollection.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -58,7 +58,7 @@
 		17A457B522425143006748AA /* DSTD */ = {
 			isa = PBXGroup;
 			children = (
-				17A457B622425143006748AA /* main.cpp */,
+				17A457B622425143006748AA /* tests.cpp */,
 				17A457BE2242577C006748AA /* DCollection.hpp */,
 			);
 			path = DSTD;
@@ -120,7 +120,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				17A457B722425143006748AA /* main.cpp in Sources */,
+				17A457B722425143006748AA /* tests.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
