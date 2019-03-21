@@ -14,58 +14,10 @@
 #include <vector>
 #include <queue>
 #include <list>
+#include <set>
+#include <map>
 
 namespace dstd {
-    
-#define LA (body) [ ](auto & i0) { body; }
-#define LAr(body) [ ](auto & i0) { return body; }
-#define CL (body) [&](auto & i0) { body; }
-#define CLr(body) [&](auto & i0) { return body; }
-    
-    template <typename Type, template <typename, typename = std::allocator<Type>> class Container>
-    struct DCollection: Container<Type> {
-        using Container<Type>::Container;
-        
-        template <typename closure>
-        inline void forEach(closure action) {
-            for (Type & item : *this) {
-                action(item);
-            }
-        }
-        
-        template <typename closure>
-        inline DCollection filter(closure shouldInclude) {
-            DCollection filteredCollection;
-            forEach([&](Type & item) {
-                if (shouldInclude(item)) {
-                    filteredCollection.insert(filteredCollection.end(), item);
-                }
-            });
-            return filteredCollection;
-        }
-        
-        template <typename closure>
-        inline Type reduce(Type initialResult, closure nextPartialResult) {
-            forEach([&](Type & item) {
-                initialResult = nextPartialResult(initialResult, item);
-            });
-            return initialResult;
-        }
-        
-        template <typename closure>
-        inline auto map(closure transform) {
-            DCollection<decltype(transform(*(this -> begin)())), Container>
-            mappedCollection;
-            forEach([&](Type & item) {
-                mappedCollection.insert(mappedCollection.end(), transform(item));
-            });
-            return mappedCollection;
-        }
-    };
-    
-    template <typename Type> using vector = DCollection<Type, std::vector>;
-    template <typename Type> using queue  = DCollection<Type, std::queue>;
-    template <typename Type> using list   = DCollection<Type, std::list>;
     
     // MARK: Lambda-operators
     const auto plus           = [](auto i0, auto i1) -> auto { return i0 + i1; };
@@ -73,6 +25,95 @@ namespace dstd {
     const auto multiplication = [](auto i0, auto i1) -> auto { return i0 * i1; };
     const auto division       = [](auto i0, auto i1) -> auto { return i0 / i1; };
     
-    const auto printOnNewLine = [](const auto & i0) { std::cout << "\n" << i0 << "\n"; };
-    const auto printInLine    = [](const auto & i0) { std::cout << i0 << " "; };
+    const auto printOnNewLine = [](const auto & i0) -> auto& {
+        return std::cout << "\n" << i0;
+    };
+    
+    const auto printInLine    = [](const auto & i0) -> auto& {
+        return std::cout << i0 << " ";
+    };
+    
+    // MARK: Macro-lambdas
+#define  LA (body) [ ](auto & i0) { body; }
+#define  LAr(body) [ ](auto & i0) { return body; }
+#define bLA (body) [ ](auto & i0, auto & i1) { body; }
+#define bLAr(body) [ ](auto & i0, auto & i1) { return body; }
+#define  CL (body) [&](auto & i0) { body; }
+#define  CLr(body) [&](auto & i0) { return body; }
+#define bCL (body) [&](auto & i0, auto & i1) { return body; }
+#define bCLr(body) [&](auto & i0, auto & i1) { return body; }
+    
+    template <template <typename ...> class Container,
+              typename ValueType,
+              typename ...Args>
+    struct DCollection: Container<ValueType, Args...> {
+        /// Inherits all constructors from a base type.
+        using Container<ValueType, Args...>::Container;
+        
+        /// Calls given closure for every element of the sequence.
+        template <typename Closure>
+        inline void forEach(Closure action) {
+            for (auto & item : *this) {
+                action(item);
+            }
+        }
+        
+        /// A sequence whose elements consist of the elements of base
+        /// sequence that also satisfy a given predicate.
+        template <typename Predicate>
+        inline DCollection filter(Predicate shouldInclude) const {
+            DCollection filteredCollection;
+            for (const auto & item : *this) {
+                if (shouldInclude(item)) {
+                    filteredCollection.insert(filteredCollection.end(), item);
+                }
+            }
+            return filteredCollection;
+        }
+        
+        /// Combines every element of the sequence into one Result
+        /// by a given rule.
+        template <typename Result, typename Closure>
+        inline Result reduce(Result initialResult,
+                           Closure nextPartialResult) const {
+            for (const auto & item : *this) {
+                initialResult = nextPartialResult(initialResult, item);
+            }
+            return initialResult;
+        }
+        
+        /// Makes a new sequence which consists of the elements of base
+        /// sequence, but transformed with a given rule.
+        template <typename Closure>
+        inline auto map(Closure transform) const {
+            DCollection<Container, decltype(transform(*(this -> begin)()))>
+            mappedCollection;
+            for (const auto & item : *this) {
+                mappedCollection.insert(mappedCollection.end(), transform(item));
+            }
+            return mappedCollection;
+        }
+    };
+    
+    // DVector
+    template <typename Type, typename Allocator = std::allocator<Type>>
+    using vector = DCollection<std::vector, Type, Allocator>;
+    
+    // DQueue
+    template <typename Type, typename Allocator = std::allocator<Type>>
+    using queue = DCollection<std::queue, Type, Allocator>;
+    
+    // DList
+    template <typename Type, typename Allocator = std::allocator<Type>>
+    using list = DCollection<std::list, Type, Allocator>;
+    
+    // DSet
+    template <class Key, class Compare = std::less<Key>,
+              class Allocator = std::allocator<Key>>
+    using set = DCollection<std::set, Key, Compare, Allocator>;
+    
+    // DMap
+    template <class Key, class Value, class Compare = std::less<Key>,
+              class Allocator = std::allocator<std::pair<const Key, Value>>>
+    using map = DCollection<std::map, Key, Value, Compare, Allocator>;
 }
