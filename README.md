@@ -16,13 +16,13 @@ bool lessThanFive(int integer) {
 
 ...
 
-yourDCollection.filter(lessThanFive);
+yourDCollectionOfInts.filter(lessThanFive);
 ```
 
 And with the power of lambdas it becomes something like this:
 
 ```C++
-yourDCollection.filter([](int integer) -> bool {
+yourDCollectionOfInts.filter([](int integer) -> bool {
     return integer < 5;
 });
 ```
@@ -36,7 +36,7 @@ Let's look at the example of using dstd::vector of some physics objects:
 dstd::vector<Collidable> objects;
 ...
 // In update loop we check if object is selected and, if not, run physics simulation for it.
-objects.filter(LAr( i0.isSelected ).forEach(LA( i0.simulatePhysics() ));
+objects.filter(LAr( !i0.isSelected ).forEach(LA( i0.simulatePhysics() ));
 ...
 ```
 And another example. Now we got the list of statistic data and we want to get an average:
