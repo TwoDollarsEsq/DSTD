@@ -33,6 +33,31 @@ namespace dstd {
         return std::cout << i0 << " ";
     };
     
+    template <typename Type, Type value>
+    const auto lessThan         = [](const auto & i0) -> bool {
+        return i0 < value;
+    };
+    
+    template <typename Type, Type value>
+    const auto greaterThan      = [](const auto & i0) -> bool {
+        return i0 > value;
+    };
+    
+    template <typename Type, Type value>
+    const auto equalTo          = [](const auto & i0) -> bool {
+        return i0 == value;
+    };
+    
+    template <typename Type, Type value>
+    const auto lessOrEqualTo    = [](const auto & i0) -> bool {
+        return i0 <= value;
+    };
+    
+    template <typename Type, Type value>
+    const auto greaterOrEqualTo = [](const auto & i0) -> bool {
+        return i0 >= value;
+    };
+    
     // MARK: Macro-lambdas
 #define  LA        [ ](auto & i0) 
 #define  LAr(body) [ ](auto & i0) { return body; }
