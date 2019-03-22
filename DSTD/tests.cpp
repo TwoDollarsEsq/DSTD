@@ -3,7 +3,8 @@
 //  DSTD
 //
 //  Created by Artyom Rudakov on 3/20/19.
-//  Copyright © 2019 Artyom Rudakov. All rights reserved.
+//  Copyright © 2019 Artyom Rudakov.
+//  MIT license - see LICENSE.md
 //
 
 #include <iostream>
