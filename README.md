@@ -29,7 +29,7 @@ yourDCollectionOfInts.filter([](int integer) -> bool {
 DCollection brings some cool stuff like **Lambda-operators** and **Macro-lambdas** to make your experience even better! Lambda-operators are just constant variables which stores generic lambdas for common operations, like arithmetic ones, and the macro-lambdas let you to write your logic inline.  
 
 ## Meet Your Collections
-By far, there are DVector, DQueue, DList, DSet and DMap. All of them are stored in dstd namespace with coresponding names: vector, queue, list, set, map. <br>
+By far, there are DVector, DList, DSet and DMap. All of them are stored in dstd namespace with coresponding names: vector, list, set, map. <br>
 Let's look at the example of using dstd::vector of some physics objects:
 
 ```C++

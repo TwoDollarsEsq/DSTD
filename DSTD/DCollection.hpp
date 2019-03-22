@@ -99,10 +99,6 @@ namespace dstd {
     template <typename Type, typename Allocator = std::allocator<Type>>
     using vector = DCollection<std::vector, Type, Allocator>;
     
-    // DQueue
-    template <typename Type, typename Allocator = std::allocator<Type>>
-    using queue = DCollection<std::queue, Type, Allocator>;
-    
     // DList
     template <typename Type, typename Allocator = std::allocator<Type>>
     using list = DCollection<std::list, Type, Allocator>;
