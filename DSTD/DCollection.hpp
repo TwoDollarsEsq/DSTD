@@ -34,13 +34,13 @@ namespace dstd {
     };
     
     // MARK: Macro-lambdas
-#define  LA (body) [ ](auto & i0) { body; }
+#define  LA        [ ](auto & i0) 
 #define  LAr(body) [ ](auto & i0) { return body; }
-#define bLA (body) [ ](auto & i0, auto & i1) { body; }
+#define bLA        [ ](auto & i0, auto & i1)
 #define bLAr(body) [ ](auto & i0, auto & i1) { return body; }
-#define  CL (body) [&](auto & i0) { body; }
+#define  CL        [&](auto & i0)
 #define  CLr(body) [&](auto & i0) { return body; }
-#define bCL (body) [&](auto & i0, auto & i1) { body; }
+#define bCL        [&](auto & i0, auto & i1)
 #define bCLr(body) [&](auto & i0, auto & i1) { return body; }
     
     template <template <typename ...> class Container,
