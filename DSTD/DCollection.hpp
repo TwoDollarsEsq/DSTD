@@ -2,7 +2,7 @@
 //  DCollection.hpp
 //  DSTD
 //
-//  'D' stands for 'Declative'. So, it is DeclativeCollection,
+//  'D' stands for 'Declarative'. So, it is DeclarativeCollection,
 //  declarative std and so on.
 //
 //  Created by Artyom Rudakov on 3/20/19.
@@ -40,7 +40,7 @@ namespace dstd {
 #define bLAr(body) [ ](auto & i0, auto & i1) { return body; }
 #define  CL (body) [&](auto & i0) { body; }
 #define  CLr(body) [&](auto & i0) { return body; }
-#define bCL (body) [&](auto & i0, auto & i1) { return body; }
+#define bCL (body) [&](auto & i0, auto & i1) { body; }
 #define bCLr(body) [&](auto & i0, auto & i1) { return body; }
     
     template <template <typename ...> class Container,
