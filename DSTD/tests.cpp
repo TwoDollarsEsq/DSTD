@@ -40,7 +40,7 @@ int main() {
     
     std::cout << "Hello, DSTD!\n";
     vector<int> vectorOfInts = { 1, 2, 3, 4, 5 };
-    vectorOfInts.filter(lessOrEqualTo<int, 3>).forEach(printInLine);
+    vectorOfInts.filter(lessOrEqualTo(3)).forEach(printInLine);
     printOnNewLine(vectorOfInts.reduce(0, plus)) << "\n";
     print(vectorOfInts.map(LAr( i0 + 0.5; )));
     
