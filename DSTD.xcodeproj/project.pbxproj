@@ -27,6 +27,7 @@
 		17A457B622425143006748AA /* tests.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = tests.cpp; sourceTree = "<group>"; };
 		17A457BE2242577C006748AA /* DCollection.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DCollection.hpp; sourceTree = "<group>"; };
 		17A457C12243E3C6006748AA /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		17A457C322463C0A006748AA /* TestsSupporting.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TestsSupporting.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +63,7 @@
 			children = (
 				17A457B622425143006748AA /* tests.cpp */,
 				17A457BE2242577C006748AA /* DCollection.hpp */,
+				17A457C322463C0A006748AA /* TestsSupporting.hpp */,
 			);
 			path = DSTD;
 			sourceTree = "<group>";
@@ -243,6 +245,7 @@
 		17A457BB22425143006748AA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MQ6S4E6AXV;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -252,6 +255,7 @@
 		17A457BC22425143006748AA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MQ6S4E6AXV;
 				PRODUCT_NAME = "$(TARGET_NAME)";

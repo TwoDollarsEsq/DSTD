@@ -34,6 +34,7 @@ struct Person {
     }
 };
 
+void mappingSpeedTest();
 
 int main() {
     using namespace dstd;
@@ -70,5 +71,81 @@ int main() {
     printf("Average age: %.1f\n",
            people.reduce(0.0, bLAr(i0 + i1.age)) / people.size());
     
+    mappingSpeedTest();
     return 0;
+}
+
+#include "TestsSupporting.hpp"
+void mappingSpeedTest() {
+    using namespace dstd;
+    genericTest("Mapping speed test", [&] {
+        // Test Setup
+        std::ofstream log("logs/MappingTest4", std::ios::out);
+        timeP startGlobal = now
+        size_t sampleSize = 10e6;
+        short testCount = 10;
+        
+        struct Entity {
+            double iterative, declarative;
+            Entity operator + (const Entity & other) const {
+                return {iterative + other.iterative, declarative + other.declarative};
+            }
+            Entity operator / (const int scalar) const {
+                return {iterative / scalar, declarative / scalar};
+            }
+        };
+        vector<Entity> statistic(testCount);
+        
+        std::cout << "Filling vector...\n\n";
+        vector<int> vectorOfInts(sampleSize, 10);
+        vectorOfInts.forEach(LA { i0 *= rand(); });
+        
+        // Test Body
+        for (short it = 1; it <= testCount; ++ it) {
+            timeP startIt, stopIt, startDec, stopDec;
+            
+            genericTest("Iterative mapping[" + std::to_string(it) + "]", [&] {
+                startIt = now
+                vector<double> vectorOfDoubles;
+                for (auto & integer : vectorOfInts) {
+                    vectorOfDoubles.push_back(integer + 0.25);
+                }
+                stopIt = now
+                std::cout << vectorOfDoubles.size() << "\n";
+            });
+            
+            genericTest("Declarative mapping[" + std::to_string(it) + "]", [&] {
+                startDec = now
+                auto vectorOfDoubles = vectorOfInts.map([](auto & i0) -> auto {
+                    return i0 + 0.5;
+                });
+                stopDec = now
+                std::cout << vectorOfDoubles.size() << "\n";
+            });
+            
+            double diffIt  = tConvert(startIt, stopIt),
+                   diffDec = tConvert(startDec, stopDec);
+            
+            log << " Time passed while loop[" << it << "]: " << diffIt  << "\n";
+            log << " Time passed while map [" << it << "]: " << diffDec << paragraph;
+            statistic.push_back({diffIt, diffDec});
+        }
+        
+        Entity average = statistic.reduce(Entity{0, 0}, plus) / testCount;
+        timeP stopGlobal = now
+        log << "Made " << testCount << " tests\n"
+        << "with sample size: " << sampleSize << "\n"
+        << "Iterative   average: " << average.iterative   << " sec.\n"
+        << "Declarative average: " << average.declarative << " sec.\n"
+        
+        << "Global time: " << tConvert(startGlobal, stopGlobal) << " sec.\n";
+        
+        if (average.declarative > average.iterative) {
+            log << "Loop is faster than map by "
+            << 1 - average.iterative / average.declarative << " percents.\n";
+        } else {
+            log << "map is faster than loop by "
+            << 1 - average.declarative / average.iterative << " percents.\n";
+        }
+    });
 }
